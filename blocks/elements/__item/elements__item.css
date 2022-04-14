@@ -1,0 +1,7 @@
+.elements__item {
+  border-radius: 10px;
+  background-color: white;
+  min-height: 362px;
+  white-space: nowrap;
+  overflow: hidden;
+}
