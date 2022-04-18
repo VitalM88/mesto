@@ -4,12 +4,13 @@
   background-image: url('../../../images/profile/__add.svg');
   background-repeat: no-repeat;
   background-position: center;
-  border: 2px solid white;
+  border: 2px solid #fff;
   box-sizing: border-box;
   margin: auto 0;
   margin-left: auto;
-  background-color: black;
+  background-color: #000;
   cursor: pointer;
+  transition: opacity 0.2s;
 }
 
 .profile__add-button:hover {

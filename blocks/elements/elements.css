@@ -5,10 +5,15 @@
   max-width: 880px;
 }
 
-@media screen and (max-width: 520px) {
+@media screen and (max-width: 900px) {
   .elements {
     margin-left: 19px;
     margin-right: 19px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .elements {
     margin-top: 36px;
   }
 }

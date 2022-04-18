@@ -1,16 +1,23 @@
 .header {
     display: flex;
     justify-content: space-between;
-    margin: 0 auto;
-    margin-top: 45px;
+    margin: 45px auto 0;
     max-width: 880px;
     height: 74px;
     border-bottom: 1px solid #545454;
+    box-sizing: border-box;
+}
+
+@media screen and (max-width: 900px) {
+  .header {
+    margin-left: 19px;
+    margin-right: 19px;
+  }
 }
 
 @media screen and (max-width: 520px) {
   .header {
-    margin-top: 28px;
+    margin: 28px auto 0;
     height: 56px;
   }
 }

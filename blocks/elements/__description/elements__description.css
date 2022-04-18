@@ -1,7 +1,5 @@
 .elements__description {
-  margin: 0 auto;
-  padding: 0;
-  margin-top: 25px;
+  margin: 25px auto 0;
   display: flex;
   max-width: 246px;
   justify-content: space-between;
