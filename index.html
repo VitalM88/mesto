@@ -30,54 +30,6 @@
       <section class="elements">
         <ul class="elements__items">
 
-          <li class="elements__item">
-            <img class="elements__photo" src="images/elements/__karachaevsk.jpg" alt="Карачаевск">
-            <div class="elements__description">
-                <h3 class="elements__title">Карачаевск</h3>
-                <button class="elements__like" type="button"></button>
-            </div>
-          </li>
-
-          <li class="elements__item">
-            <img class="elements__photo" src="images/elements/__elbrus.jpg" alt="Эльбрус">
-            <div class="elements__description">
-                <h3 class="elements__title">Гора Эльбрус</h3>
-                <button class="elements__like" type="button"></button>
-            </div>
-          </li>
-
-          <li class="elements__item">
-            <img class="elements__photo" src="images/elements/__dombai.jpg" alt="Домбай">
-            <div class="elements__description">
-                <h3 class="elements__title">Домбай</h3>
-                <button class="elements__like" type="button"></button>
-            </div>
-          </li>
-
-          <li class="elements__item">
-            <img class="elements__photo" src="images/elements/__elbrus.jpg" alt="Эльбрус">
-            <div class="elements__description">
-                <h3 class="elements__title">Гора Эльбрус</h3>
-                <button class="elements__like" type="button"></button>
-            </div>
-          </li>
-
-          <li class="elements__item">
-            <img class="elements__photo" src="images/elements/__dombai.jpg" alt="Домбай">
-            <div class="elements__description">
-                <h3 class="elements__title">Домбай</h3>
-                <button class="elements__like" type="button"></button>
-            </div>
-          </li>
-
-          <li class="elements__item">
-            <img class="elements__photo" src="images/elements/__karachaevsk.jpg" alt="Карачаево-Черкесия">
-            <div class="elements__description">
-                <h3 class="elements__title">Карачаево-Черкесия</h3>
-                <button class="elements__like" type="button"></button>
-            </div>
-          </li>
-
         </ul>
       </section>
 
@@ -89,7 +41,7 @@
     <div class="popup popup_profile">
       <div class="popup__body">
         <button class="popup__button-close" type="button"></button>
-        <form class="popup__content">
+        <form class="popup__content profileEditor-form">
            <h3 class="popup__title">Редактировать профиль</h3>
            <input type="text" value="Жак-Ив Кусто" class="popup__input popup__input_type_name">
            <input type="text" value="Исследователь океана" class="popup__input popup__input_type_description">
@@ -101,7 +53,7 @@
     <div class="popup popup_photo">
       <div class="popup__body">
         <button class="popup__button-close" type="button"></button>
-        <form class="popup__content">
+        <form class="popup__content photoEditor-form">
            <h3 class="popup__title">Новое место</h3>
            <input type="text" value="Название" class="popup__input popup__input_type_name">
            <input type="text" value="Ссылка на картинку" class="popup__input popup__input_type_description">
@@ -110,6 +62,27 @@
       </div>
     </div>
 
+    <div class="popup popup_open-photo">
+      <div class="popup__photo-body">
+        <button class="popup__photo-button-close" type="button"></button>
+        <img class="popup__photo">
+        <p class="popup__photo-description"></p>
+      </div>
+    </div>
+
+    <template id="elements-template">
+      <li class="elements__item">
+        <img class="elements__photo" alt=" ">
+        <button class="elements__delete" type="button"></button>
+        <div class="elements__description">
+            <h3 class="elements__title"></h3>
+            <button class="elements__like" type="button"></button>
+        </div>
+      </li>
+    </template>
+
     <script src="./scripts/index.js"></script>
+
+
 </body>
 </html>
