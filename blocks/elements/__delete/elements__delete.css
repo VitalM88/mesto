@@ -8,7 +8,7 @@
   width: 18px;
   border: none;
   cursor: pointer;
-  transition: opacity 0.2s ;
+  transition: opacity 0.2s;
 }
 
 .elements__delete:hover{
