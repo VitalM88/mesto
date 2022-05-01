@@ -3,3 +3,10 @@
   margin-bottom: 8px;
 }
 
+
+@media screen and (max-width: 520px) {
+  .profile__title {
+    max-width: 282px;
+  }
+}
+
