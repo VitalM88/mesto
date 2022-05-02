@@ -50,16 +50,13 @@ const popupPhotoCloseButton = popupPhoto.querySelector('.popup__button-close');
 
 function popupPhotoOpen() {
   openPopup(popupPhoto);
-};
-
-function popupPhotoClose() {
-  closePopup(popupPhoto);
-  descriptionPhotoInput.value = "";
-  namePhotoInput.value = "";
+  formPhotoElement.reset();
 };
 
 popupPhotoOpenButton.addEventListener('click', popupPhotoOpen);
-popupPhotoCloseButton.addEventListener('click', popupPhotoClose);
+popupPhotoCloseButton.addEventListener('click', function() {
+  closePopup(popupPhoto);
+});
 
 // массив начальных изображений
 
@@ -91,6 +88,7 @@ const initialCards = [
 ];
 
 // генерация карточки
+
 const elementTemplate = document.querySelector('#elements-template').content;
 const elementItems = document.querySelector('.elements__items');
 
@@ -98,6 +96,13 @@ const popupPhotoOpened = document.querySelector('.popup_open-photo');
 const photoOpened = popupPhotoOpened.querySelector('.popup__photo');
 const photoDescription = document.querySelector('.popup__photo-description');
 const closePhotoButton = document.querySelector('.popup__photo-button-close');
+
+function photoOpen(photo, title) {
+  photoOpened.src = photo.src;
+  photoOpened.alt = title.textContent;
+  photoDescription.textContent = title.textContent;
+  openPopup(popupPhotoOpened);
+}
 
 function generateCard(nameCard, linkCard) {
   const elementItemAdd = elementTemplate.querySelector('.elements__item').cloneNode(true);
@@ -119,15 +124,11 @@ function generateCard(nameCard, linkCard) {
     deleteItem.remove();
   });
 
-  function photoOpen() {
-    photoOpened.src = elementPhotoAdd.src;
-    photoOpened.alt = elementTitleAdd.textContent;
-    photoDescription.textContent = elementTitleAdd.textContent;
-    openPopup(popupPhotoOpened);
-  }
-  elementPhotoAdd.addEventListener('click', photoOpen);
 
-  closePhotoButton.addEventListener('click', function () {
+  elementPhotoAdd.addEventListener('click', () => {
+    photoOpen(elementPhotoAdd, elementTitleAdd);
+  });
+  closePhotoButton.addEventListener('click', () => {
     closePopup(popupPhotoOpened);
   });
 
@@ -153,7 +154,7 @@ function formSubmitPhotoHandler (evt) {
   const cardName = namePhotoInput.value;
   const cardLink = descriptionPhotoInput.value;
   renderCard(cardName, cardLink);
-  popupPhotoClose();
+  closePopup(popupPhoto);
 };
 
 formPhotoElement.addEventListener('submit', formSubmitPhotoHandler);
