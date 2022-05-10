@@ -9,6 +9,7 @@
   border: none;
   cursor: pointer;
   transition: opacity 0.2s;
+  margin-top: 18px;
 }
 
 .popup__submit:hover {
@@ -19,5 +20,8 @@
   .popup__submit {
     font-size: 14px;
     height: 46px;
+    margin-top: 15px;
   }
 }
+
+

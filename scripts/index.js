@@ -1,3 +1,4 @@
+
 function openPopup(popup) {
   popup.classList.add('popup_is-opened');
 };
@@ -5,7 +6,6 @@ function openPopup(popup) {
 function closePopup(popup) {
   popup.classList.remove('popup_is-opened');
 };
-
 
 const popupProfile = document.querySelector('.popup_profile');
 const popupProfileOpenButton = document.querySelector('.profile__edit-button');
@@ -37,9 +37,26 @@ function formSubmitHandler (evt) {
   popupProfileClose();
 }
 
+function popupOverlayClick (evt) {
+  if (evt.target === evt.currentTarget) {
+    closePopup(popupProfile);
+    closePopup(popupPhoto);
+  }
+}
+
+function popupEscapePressed (evt) {
+  if (evt.key === "Escape") {
+    closePopup(popupProfile);
+    closePopup(popupPhoto);
+  }
+}
+
+document.addEventListener('keydown', popupEscapePressed)
+popupProfile.addEventListener('click', popupOverlayClick)
 popupProfileOpenButton.addEventListener('click', popupProfileOpen);
 popupProfileCloseButton.addEventListener('click', popupProfileClose);
 formElement.addEventListener('submit', formSubmitHandler);
+
 
 // 5 спринт
 
@@ -53,6 +70,7 @@ function popupPhotoOpen() {
   formPhotoElement.reset();
 };
 
+popupPhoto.addEventListener('click', popupOverlayClick)
 popupPhotoOpenButton.addEventListener('click', popupPhotoOpen);
 popupPhotoCloseButton.addEventListener('click', function() {
   closePopup(popupPhoto);
@@ -166,5 +184,7 @@ initialCards.forEach((card) => {
   const cardLinkInitial = card.link;
   renderCard(cardNameInitial, cardLinkInitial);
 });
+
+
 
 
