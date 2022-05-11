@@ -11,18 +11,25 @@ const popupProfile = document.querySelector('.popup_profile');
 const popupProfileOpenButton = document.querySelector('.profile__edit-button');
 const popupProfileCloseButton = popupProfile.querySelector('.popup__button-close');
 
-const formElement = document.querySelector('.profileEditor-form');
-const nameInput = formElement.querySelector('.popup__input_type_name');
-const jobInput = formElement.querySelector('.popup__input_type_description');
+const formProfileElement = document.querySelector('.profileEditor-form');
+const nameInput = formProfileElement.querySelector('.popup__input_type_name');
+const jobInput = formProfileElement.querySelector('.popup__input_type_description');
 
 const profileInfo = document.querySelector('.profile__info')
 const profileName = profileInfo.querySelector('.profile__name');
 const profileJob = profileInfo.querySelector('.profile__description');
+const popupProfileInputList = Array.from(popupProfile.querySelectorAll('.popup__input'));
+const popupProfileSubmitButton = popupProfile.querySelector('.popup__submit');
+const currentPopup = document.querySelector('.popup_is-opened');
 
 
 function popupProfileOpen() {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
+  popupProfileInputList.forEach((inputElement) => {
+    hideInputError(popupProfile, inputElement);
+  });
+  toggleButtonState(popupProfileInputList, popupProfileSubmitButton);
   openPopup(popupProfile);
 };
 
@@ -30,7 +37,7 @@ function popupProfileClose() {
   closePopup(popupProfile);
 };
 
-function formSubmitHandler (evt) {
+function popupProfileSubmitHandler (evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
@@ -39,15 +46,13 @@ function formSubmitHandler (evt) {
 
 function popupOverlayClick (evt) {
   if (evt.target === evt.currentTarget) {
-    closePopup(popupProfile);
-    closePopup(popupPhoto);
+    closePopup(document.querySelector('.popup_is-opened'));
   }
 }
 
 function popupEscapePressed (evt) {
   if (evt.key === "Escape") {
-    closePopup(popupProfile);
-    closePopup(popupPhoto);
+    closePopup(document.querySelector('.popup_is-opened'));
   }
 }
 
@@ -55,7 +60,7 @@ document.addEventListener('keydown', popupEscapePressed)
 popupProfile.addEventListener('click', popupOverlayClick)
 popupProfileOpenButton.addEventListener('click', popupProfileOpen);
 popupProfileCloseButton.addEventListener('click', popupProfileClose);
-formElement.addEventListener('submit', formSubmitHandler);
+formProfileElement.addEventListener('submit', popupProfileSubmitHandler);
 
 
 // 5 спринт
@@ -64,46 +69,23 @@ formElement.addEventListener('submit', formSubmitHandler);
 const popupPhoto = document.querySelector('.popup_photo');
 const popupPhotoOpenButton = document.querySelector('.profile__add-button');
 const popupPhotoCloseButton = popupPhoto.querySelector('.popup__button-close');
+const popupPhotoInputList = Array.from(popupPhoto.querySelectorAll('.popup__input'));
+const popupPhotoSubmitButton = popupPhoto.querySelector('.popup__submit');
 
 function popupPhotoOpen() {
   openPopup(popupPhoto);
   formPhotoElement.reset();
+  popupPhotoInputList.forEach((inputElement) => {
+    hideInputError(popupPhoto, inputElement);
+  });
+  toggleButtonState(popupPhotoInputList, popupPhotoSubmitButton);
 };
 
-popupPhoto.addEventListener('click', popupOverlayClick)
+popupPhoto.addEventListener('click', popupOverlayClick);
 popupPhotoOpenButton.addEventListener('click', popupPhotoOpen);
 popupPhotoCloseButton.addEventListener('click', function() {
   closePopup(popupPhoto);
 });
-
-// массив начальных изображений
-
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
 
 // генерация карточки
 
@@ -146,13 +128,15 @@ function generateCard(nameCard, linkCard) {
   elementPhotoAdd.addEventListener('click', () => {
     photoOpen(elementPhotoAdd, elementTitleAdd);
   });
-  closePhotoButton.addEventListener('click', () => {
-    closePopup(popupPhotoOpened);
-  });
 
   return elementItemAdd;
 };
 
+
+popupPhotoOpened.addEventListener('click', popupOverlayClick);
+closePhotoButton.addEventListener('click', () => {
+  closePopup(popupPhotoOpened);
+});
 
 // рендер картоки
 const formPhotoElement = document.querySelector('.photoEditor-form');
