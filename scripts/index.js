@@ -124,6 +124,7 @@ class Card {
 
   _setEventListeners() {
     const elementPhotoAdd = this._element.querySelector('.elements__photo');
+    const elementTitleAdd = this._element.querySelector('.elements__title');
     const likeButton = this._element.querySelector('.elements__like');
     const deleteButton = this._element.querySelector('.elements__delete');
     
@@ -147,7 +148,7 @@ class Card {
     this._setEventListeners();
     this._element.querySelector('.elements__photo').src = this._link;
     this._element.querySelector('.elements__photo').alt = this._name;
-    this._element.querySelector('.elements__photo').textContent = this._name;
+    this._element.querySelector('.elements__title').textContent = this._name;
     return this._element;
   }
 
@@ -200,14 +201,13 @@ closePhotoButton.addEventListener('click', () => {
 
 // рендер картоки
 
-/*
+
 
 const formPhotoElement = document.querySelector('.photoEditor-form');
-
 const photoElement = document.querySelector('.popup_photo');
 const namePhotoInput = photoElement.querySelector('.popup__input_type_name');
 const descriptionPhotoInput = photoElement.querySelector('.popup__input_type_description');
-
+/*
 function renderCard(nameCard, linkCard) {
   elementItems.prepend(generateCard(nameCard, linkCard));
 };
@@ -216,13 +216,16 @@ function renderCard(nameCard, linkCard) {
 
 function formSubmitPhotoHandler (evt) {
   evt.preventDefault();
-  const cardName = namePhotoInput.value;
-  const cardLink = descriptionPhotoInput.value;
-  renderCard(cardName, cardLink);
+  const cardAdd = {};
+  cardAdd.name = namePhotoInput.value;
+  cardAdd.link = descriptionPhotoInput.value;
+  renderCard(cardAdd);
   closePopup(popupPhoto);
+  console.log(cardAdd);
+  console.log("sdfs");
 };
 
-//formPhotoElement.addEventListener('submit', formSubmitPhotoHandler);
+formPhotoElement.addEventListener('submit', formSubmitPhotoHandler);
 
 //добавление начальный изображений
 
