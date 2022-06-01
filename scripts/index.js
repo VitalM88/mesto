@@ -15,7 +15,7 @@ const formProfileElement = document.querySelector('.profileEditor-form');
 const nameInput = formProfileElement.querySelector('.popup__input_type_name');
 const jobInput = formProfileElement.querySelector('.popup__input_type_description');
 
-const profileInfo = document.querySelector('.profile__info')
+const profileInfo = document.querySelector('.profile__info');
 const profileName = profileInfo.querySelector('.profile__name');
 const profileJob = profileInfo.querySelector('.profile__description');
 const popupProfileInputList = Array.from(popupProfile.querySelectorAll('.popup__input'));
@@ -26,10 +26,10 @@ const currentPopup = document.querySelector('.popup_is-opened');
 function popupProfileOpen() {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-  popupProfileInputList.forEach((inputElement) => {
-    hideInputError(popupProfile, inputElement);
-  });
-  toggleButtonState(popupProfileInputList, popupProfileSubmitButton);
+//  popupProfileInputList.forEach((inputElement) => {
+//    hideInputError(popupProfile, inputElement);
+//  });
+//  toggleButtonState(popupProfileInputList, popupProfileSubmitButton);
   openPopup(popupProfile);
 };
 
@@ -56,8 +56,8 @@ function popupEscapePressed (evt) {
   }
 }
 
-document.addEventListener('keydown', popupEscapePressed)
-popupProfile.addEventListener('click', popupOverlayClick)
+document.addEventListener('keydown', popupEscapePressed);
+popupProfile.addEventListener('click', popupOverlayClick);
 popupProfileOpenButton.addEventListener('click', popupProfileOpen);
 popupProfileCloseButton.addEventListener('click', popupProfileClose);
 formProfileElement.addEventListener('submit', popupProfileSubmitHandler);
@@ -75,10 +75,10 @@ const popupPhotoSubmitButton = popupPhoto.querySelector('.popup__submit');
 function popupPhotoOpen() {
   openPopup(popupPhoto);
   formPhotoElement.reset();
-  popupPhotoInputList.forEach((inputElement) => {
-    hideInputError(popupPhoto, inputElement);
-  });
-  toggleButtonState(popupPhotoInputList, popupPhotoSubmitButton);
+ // popupPhotoInputList.forEach((inputElement) => {
+ //   hideInputError(popupPhoto, inputElement);
+ // });
+ // toggleButtonState(popupPhotoInputList, popupPhotoSubmitButton);
 };
 
 popupPhoto.addEventListener('click', popupOverlayClick);
@@ -127,7 +127,7 @@ class Card {
     const elementTitleAdd = this._element.querySelector('.elements__title');
     const likeButton = this._element.querySelector('.elements__like');
     const deleteButton = this._element.querySelector('.elements__delete');
-    
+
     elementPhotoAdd.addEventListener('click', () => {
       photoOpen(elementPhotoAdd, elementTitleAdd);
     });
