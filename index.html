@@ -39,7 +39,7 @@
     <div class="popup popup_profile">
       <div class="popup__body">
         <button class="popup__button-close" type="button"></button>
-        <form class="popup__content profileEditor-form" novalidate>
+        <form class="popup__content profileEditor-form" name="profile-form" novalidate>
            <h3 class="popup__title">Редактировать профиль</h3>
            <label class="popup__field">
              <input
@@ -71,7 +71,7 @@
     <div class="popup popup_photo">
       <div class="popup__body">
         <button class="popup__button-close" type="button"></button>
-        <form class="popup__content photoEditor-form" novalidate>
+        <form class="popup__content photoEditor-form" name="card-form" novalidate>
           <h3 class="popup__title">Новое место</h3>
           <label class="popup__field">
             <input
@@ -100,7 +100,7 @@
 
     <div class="popup popup_open-photo">
       <div class="popup__photo-body">
-        <button class="popup__photo-button-close" type="button"></button>
+        <button class="popup__button-close" type="button"></button>
         <img class="popup__photo">
         <p class="popup__photo-description"></p>
       </div>

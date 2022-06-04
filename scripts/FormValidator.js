@@ -2,6 +2,8 @@ export default class FormValidator {
   constructor(formElement, validationSettings) {
     this._formElement = formElement;
     this._validationSettings = validationSettings;
+    this._inputList = Array.from(this._formElement.querySelectorAll(this._validationSettings.inputSelector));
+    this._buttonElement = this._formElement.querySelector(this._validationSettings.submitButtonSelector);
   }
 
   _showInputError (inputElement) {
@@ -42,31 +44,24 @@ export default class FormValidator {
     }
   }
 
-  _setEventListeners (formElement) {
-    const inputList = Array.from(this._formElement.querySelectorAll(this._validationSettings.inputSelector));
-    const buttonElement = this._formElement.querySelector(this._validationSettings.submitButtonSelector);
-    this._toggleButtonState(inputList, buttonElement);
-    inputList.forEach((inputElement) => {
+  _setEventListeners () {
+    this._toggleButtonState(this._inputList, this._buttonElement);
+    this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement);
-        this._toggleButtonState(inputList, buttonElement);
+        this._toggleButtonState(this._inputList, this._buttonElement);
       });
     });
   }
 
   disableValidation () {
-    const inputList = Array.from(this._formElement.querySelectorAll(this._validationSettings.inputSelector));
-    const buttonElement = this._formElement.querySelector(this._validationSettings.submitButtonSelector);
-    this._toggleButtonState(inputList, buttonElement);
-    inputList.forEach((inputElement) => {
+    this._toggleButtonState(this._inputList, this._buttonElement);
+    this._inputList.forEach((inputElement) => {
       this._hideInputError(inputElement);
     });
   }
 
   enableValidation () {
-    const formList = Array.from(document.querySelectorAll(this._validationSettings.formSelector));
-    formList.forEach((formElement) => {
-      this._setEventListeners(formElement);
-    });
+    this._setEventListeners();
   }
 }

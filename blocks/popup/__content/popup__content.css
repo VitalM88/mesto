@@ -2,9 +2,6 @@
   min-height: 330px;
   width: 430px;
   background-color: #fff;
-  margin-left: 40px;
-  margin-right: 40px;
-  margin-top: 8px;
   padding-top: 34px;
   padding-left: 36px;
   padding-bottom: 36px;
@@ -21,7 +18,6 @@
     margin: 0;
     min-height: 322px;
     width: 282px;
-    margin-top: 16px;
     padding-top: 25px;
     padding-left: 22px;
     padding-bottom: 22px;
