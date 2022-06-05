@@ -24,17 +24,14 @@ function handleEscapeKey (evt) {
   }
 }
 
-//закрытие попапов кнопкой
+//закрытие попапов крестиком
 
-const buttonClose = Array.from(document.querySelectorAll('.popup__button-close'));
+const closeButtons = Array.from(document.querySelectorAll('.popup__button-close'));
 
-buttonClose.forEach((inputElement) => {
-  inputElement.addEventListener('click', popupHandleClose);
+closeButtons.forEach((button) => {
+  const popup = button.closest('.popup');
+  button.addEventListener('click', () => closePopup(popup));
 });
-
-function popupHandleClose () {
-  closePopup(document.querySelector('.popup_is-opened'));
-}
 
 
 //попап редактирования профиля
