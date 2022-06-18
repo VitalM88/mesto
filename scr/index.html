@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./pages/index.css">
+  <link rel="stylesheet" href="./scripts/pages/index.css">
   <title>Место</title>
 </head>
 <body class="page">
@@ -49,6 +49,7 @@
                 minlength="2"
                 maxlength="40"
                 id="name"
+                name="name"
                 required>
              <span class="popup__input-error name-error"></span>
            </label>
@@ -60,6 +61,7 @@
                 minlength="2"
                 maxlength="200"
                 id="description"
+                name="description"
                 required>
               <span class="popup__input-error description-error"></span>
            </label>
@@ -81,6 +83,7 @@
               minlength="2"
               maxlength="30"
               id="title"
+              name="name"
               required>
               <span class="popup__input-error title-error"></span>
           </label>
@@ -90,6 +93,7 @@
               placeholder="Ссылка на картинку"
               class="popup__input popup__input_type_description"
               id="link"
+              name="link"
               required>
               <span class="popup__input-error link-error"></span>
           </label>
@@ -117,7 +121,7 @@
       </li>
     </template>
 
-    <script type="module" src="./scripts/index.js"></script>
+    <script type="module" src="./scripts/pages/index.js"></script>
 
 
 </body>
