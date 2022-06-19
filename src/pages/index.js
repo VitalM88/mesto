@@ -1,17 +1,16 @@
 import './index.css';
-import Card from '../components/Card.js';
-import {initialCards, validationSettings} from '../utils/data.js';
-import FormValidator from '../components/FormValidator.js';
-import PopupWithImage from '../components/PopupWithImage.js';
-import PopupWithForm from '../components/PopupWithForm.js';
-import Section from '../components/Section.js';
-import UserInfo from '../components/UserInfo.js';
+import Card from '../scripts/components/Card.js';
+import {initialCards, validationSettings} from '../scripts/utils/data.js';
+import FormValidator from '../scripts/components/FormValidator.js';
+import PopupWithImage from '../scripts/components/PopupWithImage.js';
+import PopupWithForm from '../scripts/components/PopupWithForm.js';
+import Section from '../scripts/components/Section.js';
+import UserInfo from '../scripts/components/UserInfo.js';
 
 
 // попап редактирования профиля
 
 const formProfileElement = document.querySelector('.profileEditor-form');
-const formProfileValidator = new FormValidator (formProfileElement, validationSettings);
 const nameInput = formProfileElement.querySelector('.popup__input_type_name');
 const jobInput = formProfileElement.querySelector('.popup__input_type_description');
 
@@ -27,23 +26,19 @@ const popupProfileEdit = new PopupWithForm ('.popup_profile', {
 popupProfileEdit.setEventListeners();
 
 function openProfilePopup() {
-  nameInput.value = userInfo.getUserInfo().profileName;
-  jobInput.value = userInfo.getUserInfo().profileJob;
-  formProfileValidator.disableValidation();
+  const {profileJob, profileName} = userInfo.getUserInfo()
+  nameInput.value = profileName;
+  jobInput.value = profileJob;
+  formValidators['profile-form'].disableValidation();
   popupProfileEdit.open();
 };
-
 
 const popupProfileOpenButton = document.querySelector('.profile__edit-button');
 
 popupProfileOpenButton.addEventListener('click', openProfilePopup);
 
 
-
 // попап добавления карточки
-
-const formPhotoElement = document.querySelector('.photoEditor-form');
-const formPhotoValidator = new FormValidator (formPhotoElement, validationSettings);
 
 const popupPhotoAdd = new PopupWithForm ('.popup_photo', {
   handleSubmitForm: (data) => {
@@ -55,8 +50,8 @@ const popupPhotoAdd = new PopupWithForm ('.popup_photo', {
 popupPhotoAdd.setEventListeners();
 
 function openPhotoPopup() {
-  popupPhotoAdd.open('.popup_photo');
-  formPhotoValidator.disableValidation();
+  popupPhotoAdd.open();
+  formValidators['card-form'].disableValidation();
 };
 
 const popupPhotoOpenButton = document.querySelector('.profile__add-button');
@@ -76,10 +71,10 @@ function handleCardClick (photo, title) {
 
 // cоздание карточки
 
-const cardSelector = document.querySelector('#elements-template').content.querySelector('.elements__item');
+const cardTemplate = document.querySelector('#elements-template').content.querySelector('.elements__item');
 
 function createCard (data) {
-  const card = new Card(data, cardSelector, handleCardClick);
+  const card = new Card(data, cardTemplate, handleCardClick);
   const cardElement = card.generateCard();
   return cardElement;
 }
@@ -93,12 +88,20 @@ const cardsList = new Section({
 
 //добавление начальных карточек
 
-initialCards.forEach((element) => {cardsList.addItem(createCard(element))});
+cardsList.renderItems(initialCards);
 
 
-//включение валиацдии
+// Включение валидации
 
-formProfileValidator.enableValidation();
-formPhotoValidator.enableValidation();
+const formValidators = {}
+const enableValidation = (validationSettings) => {
+  const formList = Array.from(document.querySelectorAll(validationSettings.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(formElement, validationSettings)
+    const formName = formElement.getAttribute('name')
+    formValidators[formName] = validator;
+    formValidators[formName].enableValidation();
+  });
+};
 
-
+enableValidation(validationSettings);

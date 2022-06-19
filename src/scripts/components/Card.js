@@ -1,13 +1,13 @@
 export default class Card {
-    constructor(data, cardSelector, handleCardClick) {
+    constructor(data, cardTemplate, handleCardClick) {
       this._link = data.link;
       this._name = data.name;
-      this._cardSelector = cardSelector;
+      this._cardTemplate = cardTemplate;
       this._handleCardClick = handleCardClick;
     }
 
     _getTemplate() {
-      const cardElement = this._cardSelector.cloneNode(true);
+      const cardElement = this._cardTemplate.cloneNode(true);
       return cardElement;
       }
 
