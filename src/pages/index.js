@@ -1,12 +1,44 @@
 import './index.css';
 import Card from '../scripts/components/Card.js';
-import {initialCards, validationSettings} from '../scripts/utils/data.js';
+import {validationSettings} from '../scripts/utils/data.js';
 import FormValidator from '../scripts/components/FormValidator.js';
 import PopupWithImage from '../scripts/components/PopupWithImage.js';
 import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import Section from '../scripts/components/Section.js';
 import UserInfo from '../scripts/components/UserInfo.js';
+import Api from '../scripts/components/Api.js';
 
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-44',
+  headers: {
+    authorization: 'ac2a0063-32ab-49d9-9acb-d22769eece18',
+    'Content-Type': 'application/json'
+  }
+});
+
+
+// получение карточек с сервера
+
+api.getInitialCards()
+  .then((initialCards) => {
+    cardsList.renderItems(initialCards);
+  })
+  .catch((err) => {
+    console.log(`Ошибка: ${err}`);
+  });
+
+
+// получение данных пользователя
+
+api.getUserInfo()
+  .then((userData) => {
+    userInfo.setUserInfo(userData);
+    console.log(userData);
+  })
+  .catch((err) => {
+    console.log(`Ошибка: ${err}`);
+  });
 
 // попап редактирования профиля
 
@@ -18,7 +50,13 @@ const userInfo = new UserInfo ({profileName: '.profile__name', profileJob: '.pro
 
 const popupProfileEdit = new PopupWithForm ('.popup_profile', {
   handleSubmitForm: (data) => {
-    userInfo.setUserInfo(data);
+    api.editUserInfo(data)
+      .then((data) => {
+        userInfo.setUserInfo(data);
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
     popupProfileEdit.close();
   }
 });
@@ -40,12 +78,30 @@ popupProfileOpenButton.addEventListener('click', openProfilePopup);
 
 // попап добавления карточки
 
+
+const popupPhotoAdd = new PopupWithForm ('.popup_photo', {
+  handleSubmitForm: (data) => {
+    api.addCard(data)
+    .then((data) => {
+      cardsList.addItem(createCard(data));
+    })
+    .catch((err) => {
+      console.log(`Ошибка: ${err}`);
+    });
+    
+    popupPhotoAdd.close();
+  }
+});
+
+
+/**
 const popupPhotoAdd = new PopupWithForm ('.popup_photo', {
   handleSubmitForm: (data) => {
     cardsList.addItem(createCard(data));
     popupPhotoAdd.close();
   }
 });
+ */
 
 popupPhotoAdd.setEventListeners();
 
@@ -88,7 +144,7 @@ const cardsList = new Section({
 
 //добавление начальных карточек
 
-cardsList.renderItems(initialCards);
+//cardsList.renderItems(initialCards);
 
 
 // Включение валидации
