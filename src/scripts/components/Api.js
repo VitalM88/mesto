@@ -11,7 +11,9 @@ export default class Api {
       return Promise.reject(`Ошибка: ${res.status}`)
     }
 
-      // Получение карточек с сервера
+
+  // получение карточек с сервера
+
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers
@@ -19,7 +21,9 @@ export default class Api {
       .then(res => this._checkResponse(res));
   }
 
-  // Добавление новой карточки через попап
+
+  // добавление карточки
+
   addCard(data) {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
@@ -32,7 +36,9 @@ export default class Api {
       .then(res => this._checkResponse(res));
   }
 
-  // Удаление карточки
+
+  // удаление карточки
+  
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
@@ -41,7 +47,9 @@ export default class Api {
       .then(res => this._checkResponse(res));
   }
 
-  // Ставим лайк карточке
+
+  // ставим лайк
+
   setLike(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: 'PUT',
@@ -50,7 +58,9 @@ export default class Api {
       .then(res => this._checkResponse(res));
   }
 
-  // Удаляем лайк
+
+  // удаляем лайк
+
   deleteLike(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: 'DELETE',
@@ -60,7 +70,8 @@ export default class Api {
   }
 
 
-  // Получение информации о пользователе с сервера
+  // получение информации о пользователе
+
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers
@@ -68,7 +79,9 @@ export default class Api {
       .then(res => this._checkResponse(res));
   }
 
-  // Редактирование информации о пользователе через попап
+
+  // редактирование информации о пользователе
+
   editUserInfo(data) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
@@ -81,7 +94,9 @@ export default class Api {
       .then(res => this._checkResponse(res));
   }
 
-  // Редактирование аватара пользователя через попап
+
+  // редактирование аватара пользователя 
+
   editAvatar(data) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
