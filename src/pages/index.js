@@ -34,11 +34,14 @@ api.getInitialCards()
 api.getUserInfo()
   .then((userData) => {
     userInfo.setUserInfo(userData);
+    userId = userData._id
     console.log(userData);
   })
   .catch((err) => {
     console.log(`Ошибка: ${err}`);
   });
+
+let userId;
 
 // попап редактирования профиля
 
@@ -88,7 +91,7 @@ const popupPhotoAdd = new PopupWithForm ('.popup_photo', {
     .catch((err) => {
       console.log(`Ошибка: ${err}`);
     });
-    
+
     popupPhotoAdd.close();
   }
 });
@@ -125,13 +128,45 @@ function handleCardClick (photo, title) {
 }
 
 
+
 // cоздание карточки
 
 const cardTemplate = document.querySelector('#elements-template').content.querySelector('.elements__item');
 
 function createCard (data) {
-  const card = new Card(data, cardTemplate, handleCardClick);
+  const card = new Card(data, cardTemplate, handleCardClick,
+    (dataId) => {
+      if (!card.isLiked()) {
+        api.setLike(dataId)
+        .then((res) => {
+          card.updateLikes(res);
+        })
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`);
+        });
+      } else {
+        api.deleteLike(dataId)
+        .then((res) => {
+          card.updateLikes(res);
+        })
+        .catch((err) => {
+          console.log(`Ошибка: ${err}`);
+        });
+      }
+    },
+    (dataId) => {
+      api.deleteCard(dataId)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`);
+      });
+    },
+    userId
+  );
   const cardElement = card.generateCard();
+  card.updateLikes(data);
   return cardElement;
 }
 

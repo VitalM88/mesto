@@ -1,9 +1,16 @@
 export default class Card {
-    constructor(data, cardTemplate, handleCardClick) {
+    constructor(data, cardTemplate, handleCardClick, handleLikeClick, handleDeleteClick, userId) {
       this._link = data.link;
       this._name = data.name;
+      this._id = data._id;
+      this._likes = data.likes;
+      this._userId = userId;
+      this._ownerId = data.owner._id;
       this._cardTemplate = cardTemplate;
       this._handleCardClick = handleCardClick;
+      this._handleLikeClick = handleLikeClick;
+      this._handleDeleteClick = handleDeleteClick;
+
     }
 
     _getTemplate() {
@@ -20,15 +27,35 @@ export default class Card {
         this._handleCardClick(this._link, this._name);
       });
 
-      this._likeButton.addEventListener('click', function (evt) {
-        evt.target.classList.toggle('elements__like_active');
+      this._likeButton.addEventListener('click', (evt) => {
+        this._handleLikeClick(this._id);
       });
 
-      this._deleteButton.addEventListener('click', function (evt) {
+      this._deleteButton.addEventListener('click', (evt) => {
+        this._handleDeleteClick(this._id);
         const deleteItem = evt.target.closest('.elements__item');
         deleteItem.remove();
       });
 
+      if (!(this._userId === this._ownerId)){
+        this._deleteButton.style.display = "none";
+      }
+
+
+    }
+
+    updateLikes(newData) {
+      this._likes = newData.likes;
+      this._element.querySelector('.elements__like-counter').textContent = this._likes.length;
+      if (this.isLiked()) {
+        this._like.classList.add('elements__like_active');
+      } else {
+        this._like.classList.remove('elements__like_active');
+      }
+    }
+
+    isLiked() {
+      return this._likes.some((item) => item._id === this._userId);
     }
 
     generateCard() {
@@ -36,7 +63,10 @@ export default class Card {
       this._setEventListeners();
       this._elementPhotoAdd.src = this._link;
       this._elementPhotoAdd.alt = this._name;
+      this._element.querySelector('.elements__like-counter').textContent = this._likes.length;
       this._element.querySelector('.elements__title').textContent = this._name;
+      this._like = this._element.querySelector('.elements__like');
+
       return this._element;
     }
 

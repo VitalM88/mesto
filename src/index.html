@@ -102,6 +102,16 @@
       </div>
     </div>
 
+    <div class="popup popup_confirmation">
+      <div class="popup__body">
+        <button class="popup__button-close" type="button"></button>
+        <form class="popup__content profileEditor-form" name="profile-form" novalidate>
+           <h3 class="popup__title">Вы уверенны?</h3>
+           <button type="submit" class="popup__submit">Да</button>
+        </form>
+      </div>
+    </div>
+
     <div class="popup popup_open-photo">
       <div class="popup__photo-body">
         <button class="popup__button-close" type="button"></button>
@@ -116,12 +126,15 @@
         <button class="elements__delete" type="button"></button>
         <div class="elements__description">
             <h3 class="elements__title"></h3>
-            <button class="elements__like" type="button"></button>
+            <div class="elements__like-zone">
+              <button class="elements__like" type="button"></button>
+              <span class="elements__like-counter">0</span>
+            </div>
         </div>
       </li>
     </template>
 
-  <!-- <script type="module" src="./scripts/pages/index.js"></script> --> 
+  <!-- <script type="module" src="./scripts/pages/index.js"></script> -->
 
 
 </body>
