@@ -1,4 +1,4 @@
-.popup__content {
+.popup__confirm-content {
 
   width: 430px;
   background-color: #fff;
@@ -14,7 +14,7 @@
 }
 
 @media screen and (max-width: 520px) {
-  .popup__content {
+  .popup__confirm-content {
     margin: 0;
     min-height: 322px;
     width: 282px;

@@ -7,6 +7,7 @@ import PopupWithForm from '../scripts/components/PopupWithForm.js';
 import Section from '../scripts/components/Section.js';
 import UserInfo from '../scripts/components/UserInfo.js';
 import Api from '../scripts/components/Api.js';
+import PopupWithConfirmation from '../scripts/components/PopupWithConfirmation.js';
 
 
 const api = new Api({
@@ -118,7 +119,7 @@ const popupPhotoOpenButton = document.querySelector('.profile__add-button');
 popupPhotoOpenButton.addEventListener('click', openPhotoPopup);
 
 
-//открытие изображений
+// открытие изображений
 
 const viewPhotoPopup = new PopupWithImage('.popup_open-photo');
 viewPhotoPopup.setEventListeners();
@@ -127,6 +128,11 @@ function handleCardClick (photo, title) {
   viewPhotoPopup.open(photo, title);
 }
 
+
+// попап подтверждение
+
+const popupWithConfirmation = new PopupWithConfirmation('.popup_confirmation');
+popupWithConfirmation.setEventListeners();
 
 
 // cоздание карточки
@@ -155,12 +161,16 @@ function createCard (data) {
       }
     },
     (dataId) => {
-      api.deleteCard(dataId)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(`Ошибка: ${err}`);
+      popupWithConfirmation.open();
+      popupWithConfirmation.setConfirm(() => {
+          api.deleteCard(dataId)
+          .then(() => {
+            popupWithConfirmation.close();
+            card.deleteCard();
+          })
+          .catch((err) => {
+            console.log(`Ошибка: ${err}`);
+          });
       });
     },
     userId

@@ -27,14 +27,15 @@ export default class Card {
         this._handleCardClick(this._link, this._name);
       });
 
-      this._likeButton.addEventListener('click', (evt) => {
+      this._likeButton.addEventListener('click', () => {
         this._handleLikeClick(this._id);
       });
 
       this._deleteButton.addEventListener('click', (evt) => {
+
         this._handleDeleteClick(this._id);
-        const deleteItem = evt.target.closest('.elements__item');
-        deleteItem.remove();
+        //const deleteItem = evt.target.closest('.elements__item');
+        //deleteItem.remove();
       });
 
       if (!(this._userId === this._ownerId)){
@@ -42,6 +43,10 @@ export default class Card {
       }
 
 
+    }
+
+    deleteCard() {
+      this._element.remove();
     }
 
     updateLikes(newData) {

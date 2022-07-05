@@ -51,6 +51,9 @@
 @import url(../blocks/popup/__submit/popup__submit.css);
 @import url(../blocks/popup/__submit/_inactive/popup__submit_inactive.css);
 
+@import url(../blocks/popup/__button-confirm/popup__button-confirm.css);
+@import url(../blocks/popup/__confirm-content/popup__confirm-content.css);
+
 
 @import url(../blocks/popup/__photo/popup__photo.css);
 @import url(../blocks/popup/_open-photo/popup_open-photo.css);
