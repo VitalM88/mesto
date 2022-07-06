@@ -17,10 +17,4 @@ export default class PopupWithConfirmation extends Popup {
       this._handleConfirmCallback();
     })
   }
-
-  close() {
-    super.close();
-  }
-
-
 }

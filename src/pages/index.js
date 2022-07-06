@@ -19,30 +19,19 @@ const api = new Api({
 });
 
 
-// получение данных пользователя
+// получение данных пользователя и карточек с сервера
 
-api.getUserInfo()
-  .then((userData) => {
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, initialCards]) => {
     userInfo.setUserInfo(userData);
-    userId = userData._id
-    console.log(userData);
-  })
-  .catch((err) => {
-    console.log(`Ошибка: ${err}`);
-  });
-
-let userId;
-
-
-// получение карточек с сервера
-
-api.getInitialCards()
-  .then((initialCards) => {
+    userId = userData._id;
     cardsList.renderItems(initialCards);
   })
   .catch((err) => {
     console.log(`Ошибка: ${err}`);
   });
+
+  let userId;
 
 
 // попап редактирования профиля
@@ -55,17 +44,17 @@ const userInfo = new UserInfo ({profileName: '.profile__name', profileJob: '.pro
 
 const popupProfileEdit = new PopupWithForm ('.popup_profile', {
   handleSubmitForm: (data) => {
-    popupProfileEdit.dataLoading(true);
+    popupProfileEdit.renderLoading(true);
     api.editUserInfo(data)
       .then((data) => {
         userInfo.setUserInfo(data);
+        popupProfileEdit.close();
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
       })
       .finally(() => {
-        popupProfileEdit.dataLoading(false);
-        popupProfileEdit.close();
+        popupProfileEdit.renderLoading(false);
       });  
     
   }
@@ -74,9 +63,10 @@ const popupProfileEdit = new PopupWithForm ('.popup_profile', {
 popupProfileEdit.setEventListeners();
 
 function openProfilePopup() {
-  const {profileJob, profileName} = userInfo.getUserInfo()
-  nameInput.value = profileName;
-  jobInput.value = profileJob;
+  //const {profileJob, profileName} = userInfo.getUserInfo()
+  //nameInput.value = profileName;
+  //jobInput.value = profileJob;
+  popupProfileEdit.setInputValues(userInfo.getUserInfo());
   formValidators['profile-form'].disableValidation();
   popupProfileEdit.open();
 };
@@ -90,17 +80,17 @@ popupProfileOpenButton.addEventListener('click', openProfilePopup);
 
 const popupAvatarEdit = new PopupWithForm ('.popup_avatar', {
   handleSubmitForm: (data) => {
-    popupAvatarEdit.dataLoading(true);
+    popupAvatarEdit.renderLoading(true);
     api.editAvatar(data)
       .then((data) => {
         userInfo.setUserInfo(data);
+        popupAvatarEdit.close();
       })
       .catch((err) => {
         console.log(`Ошибка: ${err}`);
       })
       .finally(() => {
-        popupAvatarEdit.dataLoading(false);
-        popupAvatarEdit.close();
+        popupAvatarEdit.renderLoading(false);
       }); 
   }
 });
@@ -121,17 +111,17 @@ popupAvatarOpen.addEventListener('click', openAvatarPopup);
 
 const popupPhotoAdd = new PopupWithForm ('.popup_photo', {
   handleSubmitForm: (data) => {
-    popupPhotoAdd.dataLoading(true);
+    popupPhotoAdd.renderLoading(true);
     api.addCard(data)
     .then((data) => {
       cardsList.addItem(createCard(data));
+      popupPhotoAdd.close();
     })
     .catch((err) => {
       console.log(`Ошибка: ${err}`);
     })
     .finally(() => {
-      popupPhotoAdd.dataLoading(false);
-      popupPhotoAdd.close();
+      popupPhotoAdd.renderLoading(false);
     }); 
   }
 });

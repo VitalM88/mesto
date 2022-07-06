@@ -87,8 +87,8 @@ export default class Api {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        name: data.name,
-        about: data.description
+        name: data.profileName,
+        about: data.profileJob
       })
     })
       .then(res => this._checkResponse(res));
